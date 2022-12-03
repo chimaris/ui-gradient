@@ -1,8 +1,8 @@
-## Codevivens 20DaysOfCode Day 1
+# Codevivens 20DaysOfCode Day 1
 
-# About this project
+### About this project
 
-# Background Gradient Color Change
+## Background Gradient Color Changes
 
 Build a sequential background color changing gradient website.
 
@@ -38,12 +38,6 @@ Build a sequential background color changing gradient website.
 - Use fontawesome direction icons for the previous and next button
 - The previous button must be located at the far left of the page while the next button must be located at the far right hand side of the page.
 
-### Nice to have (bonus points)
-
-- It would be nice to use a frontend framework of choice. e.g Reactjs, Vuejs etc
-- A readme.md file containing information about the project and how to run it locally
-- A social media post on twitter or LinkedIn about your Day1 task using the hashtag #Cdv20DaysOfCode
-
 ### Built with
 
 - Mobile-first workflow
@@ -52,7 +46,7 @@ Build a sequential background color changing gradient website.
 
 ## Live Site URL
 
-https://loopstudio-landing-page-tan.vercel.app/
+https://ui-gradient.vercel.app/
 
 ## Available Scripts
 
@@ -63,7 +57,7 @@ In the project directory, you can run:
 ### `yarn dev`
 
 Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Open [http://127.0.0.1:5173/](http://127.0.0.1:5173/) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
