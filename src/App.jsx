@@ -1,9 +1,6 @@
 import { IconButton, Box, Flex, Spacer, Text, Heading } from '@chakra-ui/react'
 import { useState } from 'react'
-import { FaAngleLeft } from "react-icons/fa";
-import { FaAngleRight } from "react-icons/fa";
-import { FaLongArrowAltRight } from "react-icons/fa";
-
+import { FaAngleLeft, FaAngleRight, FaLongArrowAltRight } from "react-icons/fa";
 import './App.css'
 
 const gradients = [
@@ -18,25 +15,17 @@ const gradients = [
   { color1: '#232526', color2: ' #414345' },
   { color1: '#5C258D', color2: ' #4389A2' },
   { color1: '#4776E6', color2: ' #8E54E9' },
-
 ]
 
-function App() {
+const App = () => {
   const [next, setNext] = useState(0)
 
   const nextHandler = () => {
-    console.log(next);
-    if (next === gradients.length - 1) {
-      setNext(0);
-    }
-    setNext((prev) => prev + 1);
+    next === gradients.length - 1 ? setNext(0) : setNext((prev) => prev + 1);
   }
+
   const prevHandler = () => {
-    console.log(next);
-    if (next === 0) {
-      setNext(gradients.length);
-    }
-    setNext((prev) => prev - 1);
+    next === 0 ? setNext(gradients.length - 1) : setNext((prev) => prev - 1);
   }
 
   const container = {
