@@ -2,6 +2,7 @@ import { IconButton, Box, Flex, Spacer, Text, Heading } from '@chakra-ui/react'
 import { useState } from 'react'
 import { FaAngleLeft } from "react-icons/fa";
 import { FaAngleRight } from "react-icons/fa";
+import { FaLongArrowAltRight } from "react-icons/fa";
 
 import './App.css'
 
@@ -47,7 +48,7 @@ function App() {
       <Box>
         <Text>
           <span style={{ backgroundColor: `${gradients[next].color1}` }} />
-          {gradients[next].color1} --- <span style={{ backgroundColor: `${gradients[next].color2}` }} />
+          {gradients[next].color1} <IconButton variant='outline' icon={<FaLongArrowAltRight />} /> <span style={{ backgroundColor: `${gradients[next].color2}` }} />
           {gradients[next].color2}
         </Text>
       </Box>
