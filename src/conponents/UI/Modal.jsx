@@ -1,6 +1,4 @@
-import { Fragment } from "react";
 import ReactDOM from "react-dom";
-// import AddGradient from "../AddGradient";
 
 import classes from "./Modal.module.css";
 
