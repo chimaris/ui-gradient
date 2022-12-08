@@ -1,4 +1,4 @@
-.ani {
+.gridBox {
 	animation: slide-down 600ms ease-out forwards;
 }
 
@@ -11,4 +11,17 @@
 		opacity: 1;
 		transform: translateY(0);
 	}
+}
+
+.grid {
+	box-shadow: 0px 2px 4px gray;
+	transition: all 0.1s ease-in-out;
+	cursor: pointer;
+}
+.grid:hover {
+	background-color: #222;
+	border-radius: 3px;
+	transform: scale(1.02);
+	text-decoration: underline;
+	color: white;
 }

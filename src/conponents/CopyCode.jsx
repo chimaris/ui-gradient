@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Box, useToast } from '@chakra-ui/react';
 import React from 'react'
 import Modal from './UI/Modal'
 import Button from './UI/Button';
@@ -8,13 +8,23 @@ import classes from "./CopyCode.module.css";
 
 
 const CopyCode = ({ next, gradients, isRotate, onClose }) => {
+    const toast = useToast();
 
     const codeBlock = `
   background: ${gradients[next].color1}; /* fallback for old browsers */
   background: -webkit-linear-gradient(to ${isRotate ? 'left' : 'right'}, ${gradients[next].color1}, ${gradients[next].color2}); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, ${gradients[next].color1}, ${gradients[next].color2}); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */`;
 
-    const copyHandler = (e) => navigator.clipboard.writeText(codeBlock);
+    const copyHandler = (e) => {
+        navigator.clipboard.writeText(codeBlock);
+        toast({
+            title: 'Copied Successfully 😋',
+            // description: "We've created your gradient for you.",
+            status: 'success',
+            duration: 4000,
+            isClosable: true,
+        })
+    };
 
     return (
         <Modal onClose={onClose}>

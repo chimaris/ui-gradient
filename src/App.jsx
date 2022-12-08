@@ -1,5 +1,6 @@
 import { IconButton, Box, Flex, Spacer, Text, Heading, Tooltip } from '@chakra-ui/react'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react';
+import html2canvas from 'html2canvas';
 import { FaAngleLeft, FaAngleRight, FaLongArrowAltRight, FaLayerGroup, FaRecycle, FaCode, FaPlusSquare, FaDownload, FaTimes } from "react-icons/fa";
 import ShowGradients from './conponents/ShowGradients';
 import AddGradient from './conponents/AddGradient';
@@ -40,6 +41,8 @@ const App = () => {
   const [isShowCodeModal, setIsShowCodeModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  const printRef = useRef();
+
   useEffect(() => {
     if (isLoading) {
       setTimeout(() => {
@@ -63,6 +66,11 @@ const App = () => {
   const showGradientHandler = () => {
     setIsShowGradients(!isShowGradients);
   }
+
+  const showCurrentGradient = (id) => {
+    setNext(id);
+    setIsShowGradients(false);
+  }
   const RotateHandler = () => {
     setIsRotate(!isRotate);
   }
@@ -75,17 +83,33 @@ const App = () => {
   const closeModal = () => {
     setIsShowAddModal(false);
     setIsShowCodeModal(false);
+  }
 
+  const downloadHandler = async () => {
+    const element = printRef.current;
+    const canvas = await html2canvas(element);
+    const data = canvas.toDataURL('image/jpg');
+    const link = document.createElement('a');
+
+    if (typeof link.download === 'string') {
+      link.href = data;
+      link.download = `${gradients[next].name.toLowerCase()}.jpg`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else {
+      window.open(data);
+    }
   }
 
   const container = {
     bgGradient: `linear(to-${isRotate ? 'l' : 'r'}, ${gradients[next].color1}, ${gradients[next].color2})`
   }
 
-  const content = isShowGradients ? <ShowGradients gradients={gradients} /> : <Box sx={container} h='100vh'>
-    <Heading as='h1' color='white' p='2rem'>Hey 👩, relax and have fun..</Heading>
-    <Heading as='h1' color='white' p='2rem'>{gradients[next].name}</Heading>
-    <Flex mt={['60%', '10%']}>
+  const content = isShowGradients ? <ShowGradients gradients={gradients} showCurrentGrad={showCurrentGradient} /> : <Box sx={container} h='100vh' ref={printRef}>
+    <Heading as='h1' color='white' p='2rem' data-html2canvas-ignore>Hey 👩, relax and have fun..</Heading>
+    <Heading as='h1' color='white' p='2rem' data-html2canvas-ignore>{gradients[next].name}</Heading>
+    <Flex mt={['60%', '10%']} data-html2canvas-ignore>
       <IconButton icon={<FaAngleLeft />} onClick={prevHandler} />
       <Spacer />
       <IconButton icon={<FaAngleRight />} onClick={nextHandler} />
@@ -99,7 +123,7 @@ const App = () => {
       {isShowAddModal && <AddGradient onClose={closeModal} onAddGradient={addGradientHandler} />}
       {isShowCodeModal && <CopyCode onClose={closeModal} next={next} gradients={gradients} isRotate={isRotate} />}
       <Heading sx={headingStyle}>MiGradients</Heading>
-      {!isLoading && <Flex justify='space-between'>
+      {!isLoading && <Flex justify='space-between' flexDirection={['column-reverse', 'column-reverse', 'row']} mb='20px'>
         <div onClick={showGradientHandler}>
           <IconButton icon={isShowGradients ? <FaTimes /> : <FaLayerGroup />} /> Show all gradients
         </div>
@@ -119,11 +143,11 @@ const App = () => {
             <IconButton icon={<FaPlusSquare />} onClick={showAddModalHandler} />
           </Tooltip>
           <Tooltip label="Get .jpg" aria-label='A tooltip'>
-            <IconButton icon={<FaDownload />} />
+            <IconButton icon={<FaDownload />} onClick={downloadHandler} />
           </Tooltip>
         </div>
       </Flex>}
-      {isLoading ? <img src={loader} style={{ textAlign: 'center', display: 'inline-block', margin: 'auto' }} /> : content}
+      {isLoading ? <img src={loader} style={{ display: 'inline-block', margin: 'auto' }} /> : content}
     </>
   )
 }
